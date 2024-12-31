@@ -27,13 +27,34 @@ void insert_node_front(int data) {
 	// 수행 가능하므로 시간복잡도는 O(1)
 }
 
+void display() {
+	if (head == NULL) {
+		printf("\n\n\t\t출력할 연결 리스트 없음\n");
+		return;
+	}
+
+	node* cur;
+	cur = head;
+	
+	while (cur->next != NULL) {
+		printf("%d -> ", cur->value);
+		cur = cur->next;
+	}
+	printf("%d\n", cur->value);
+}
+
 int main()
 {
 	int choice, data;
 
 	while (1) {
-		printf("*** 단일 연결 리스트 ***\n\n");
-		printf("\n입력: ");
+		system("cls");
+		printf("\n\n*** 단일 연결 리스트 ***\n\n");
+		printf("1. 맨 앞 노드 삽입\n");
+		printf("10. 단일 연결 리스트 출력\n");
+		printf("0. 프로그램 종료\n");
+
+		printf("\n선택: ");
 		scanf_s("%d", &choice);
 		while (getchar() != '\n');
 		switch (choice) {
@@ -43,9 +64,13 @@ int main()
 			while (getchar() != '\n');
 			insert_node_front(data);
 			break;
+		case 10:
+			display();
 		case 0:
 			exit(0);
 		}
+		printf("\n\n\t\t");
+		system("pause");
 	}
 	return 0;
 }
