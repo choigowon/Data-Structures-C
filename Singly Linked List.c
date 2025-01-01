@@ -43,6 +43,22 @@ void display() {
 	printf("%d\n", cur->value);
 }
 
+void insert_node_rear() {
+	node* new, * cur;
+	new = (node*)malloc(sizeof(node));
+	scanf_s("%d", &new->value);
+	new->next = NULL;
+	if (head == NULL) {
+		head = new;
+		return;
+	}
+	cur = head;
+	while (cur->next != NULL) {
+		cur = cur->next;
+	} // node 개수 만큼 이동해야 하므로 시간 복잡도는 O(N)
+	cur->next = new;
+}
+
 int main()
 {
 	int choice, data;
