@@ -22,6 +22,18 @@ void insert(char* pstr) { // 맨 앞 삽입
 	head = new;
 }
 
+void remove() { // 전체 노드 제거
+	if (head == NULL)
+		return;
+	node* del;
+	while (head != NULL) {
+		del = head;
+		head = head->next;
+		free(del->str); // 문자열도 메모리 할당 후 포인터로 지정했기 때문에 제거 필요
+		free(del); // 포인터가 가리키는 메모리가 제거되는거임. 즉 del 노드가 아닌 del 포인터가 가리키는 노드가 제거
+	}
+}
+
 int main()
 {
 	insert("hello");
