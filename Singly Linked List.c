@@ -59,6 +59,23 @@ void insert_node_rear() {
 	cur->next = new;
 }
 
+void del() { // 맨 앞 노드 삭제
+	node* del = head;
+	if (head == NULL)
+		return;
+	head = head->next;
+	free(del);
+}
+
+void remove() { // 전체 노드 삭제
+	node* del = head;
+	while (head != NULL) {
+		head = head->next;
+		free(del);
+		del = head;
+	}
+}
+
 int main()
 {
 	int choice, data;
