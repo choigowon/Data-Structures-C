@@ -108,6 +108,33 @@ void remove_value(int target) { // 특정 노드 삭제
 	}
 }
 
+void insert() { // 정렬 삽입
+	node* new = (node*)malloc(sizeof(node));
+	scanf_s("%d", &new->value);
+	new->next = NULL;
+	if (head == NULL) { // 아무것도 없을 때
+		head = new;
+		return;
+	}
+	if (head->value > new->value) { // 가장 작은 값 삽입
+		new->next = head;
+		head = new;
+		return;
+	}
+	node* cur, * prev;
+	cur = prev = head;
+	while (cur->next != NULL) { // 중간 값 삽입
+		cur = cur->next;
+		if (cur->value > new->value) {
+			prev->next = new;
+			new->next = cur;
+			return;
+		}
+		prev = prev->next;
+	}
+	cur->next = new; // 가장 큰 값 삽입
+}
+
 int main()
 {
 	int choice, data;
