@@ -76,6 +76,17 @@ void remove() { // 전체 노드 삭제
 	}
 }
 
+node* search(int target) {
+	if (head == NULL)
+		return NULL;
+	node* cur = head;
+	while (cur != NULL) {
+		if (cur->value == target)
+			return cur;
+		cur = cur->next;
+	}
+}
+
 int main()
 {
 	int choice, data;
