@@ -36,7 +36,7 @@ void insert_tail(int data) { // 맨 뒤에 노드 삽입
 	tail = new;
 }
 
-void remove() { // 맨 앞 노드 제거
+void remove_head() { // 맨 앞 노드 제거
 	if (head == NULL) {
 		return;
 	}
@@ -50,4 +50,34 @@ void remove() { // 맨 앞 노드 제거
 	head = head->next;
 	free(del);
 	head->prev = NULL;
+}
+
+void remove(int target) {
+	if (head == NULL)
+		return;
+	node* del = (node*)malloc(sizeof(node));
+	if (head->value == target) { // 맨 앞 노드를 삭제하는 경우
+		del = head;
+		head = head->next;
+		free(del);
+		head->prev = NULL;
+		return;
+	}
+	if (tail->value == target) { // 맨 뒤 노드를 삭제하는 경우
+		del = tail;
+		tail = tail->prev;
+		free(del);
+		tail->next = NULL;
+		return;
+	}
+	del = head;
+	while (del->next != NULL) {
+		del = del->next;
+		if (del->value == target) {
+			del->prev->next = del->next;
+			del->next->prev = del->prev;
+			free(del);
+			return;
+		}
+	}
 }
