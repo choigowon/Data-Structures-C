@@ -35,3 +35,19 @@ void insert_tail(int data) { // 맨 뒤에 노드 삽입
 	new->prev = tail;
 	tail = new;
 }
+
+void remove() { // 맨 앞 노드 제거
+	if (head == NULL) {
+		return;
+	}
+	if (head->next == NULL) { // node가 1개인 경우
+		free(head);
+		head = tail = NULL;
+		return;
+	}
+	node* del = (node*)malloc(sizeof(node));
+	del = head;
+	head = head->next;
+	free(del);
+	head->prev = NULL;
+}
