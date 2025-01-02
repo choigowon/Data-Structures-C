@@ -52,7 +52,7 @@ void remove_head() { // 맨 앞 노드 제거
 	head->prev = NULL;
 }
 
-void remove(int target) {
+void remove(int target) { // 특정 노드 삭제
 	if (head == NULL)
 		return;
 	node* del = (node*)malloc(sizeof(node));
@@ -80,4 +80,55 @@ void remove(int target) {
 			return;
 		}
 	}
+}
+
+int getCount() { // node 개수 구하기
+	int count = 0;
+	if (head == NULL)
+		return count;
+	node* cur = head;
+	while (cur != NULL) {
+		count++;
+		cur = cur->next;
+	}
+	return count;
+}
+
+node* create(int data) { // node 생성
+	node* new = (node*)malloc(sizeof(node));
+	new->value = data;
+	new->prev = new->next = NULL;
+	return new;
+}
+
+void insert_nth(int n, int data) { // n번째 자리에 노드 삽입
+	int count = getCount();
+	if (n<1 || n>count + 1) // 예외 상황
+		return;
+	node* new = create(data);
+	if (head == NULL) {
+		head = new;
+		tail = new;
+		return;
+	}
+	if (n == 1) { // 첫 번째 자리에 삽입
+		new->next = head;
+		head->prev = new;
+		head = new;
+		return;
+	}
+	if (n == count + 1) { // 마지막 자리에 삽입
+		tail->next = new;
+		new->prev = tail;
+		tail = new;
+		return;
+	}
+	node* cur = head;
+	for (int i = 0; i < n - 2; i++) { // n번째 node의 이전 node로 이동
+		cur = cur->next;
+	}
+	new->next = cur->next;
+	new->prev = cur;
+	cur->next = new;
+	new->next->prev = new;
 }
