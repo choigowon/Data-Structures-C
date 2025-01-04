@@ -132,3 +132,20 @@ void insert_nth(int n, int data) { // n번째 자리에 노드 삽입
 	cur->next = new;
 	new->next->prev = new;
 }
+
+void reverse() { // node 역순 연결
+	if (head == NULL || head->next == NULL)
+		return;
+	node* cur = head;
+	node* temp;
+	while (cur != NULL) {
+		temp = cur->next;
+		cur->next = cur->prev;
+		cur->prev = temp;
+		if (cur->prev == NULL) {
+			head = cur;
+			return;
+		}
+		cur = cur->prev;
+	}
+}
