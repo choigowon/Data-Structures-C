@@ -1,0 +1,102 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct node {
+	int value;
+	struct node* next;
+}node;
+
+void enqueue(node** head, node** tail, int data) { // head가 지역 변수인 경우 더블 포인터로 head 지정
+	node* new = (node*)malloc(sizeof(node));
+	new->value = data;
+	new->next = NULL;
+	if (*head == NULL) {
+		*head = new;
+		*tail = new;
+		return;
+	}
+	(*tail)->next = new;
+	(*tail) = new;
+}
+
+int dequeue(node** head, node** tail) {
+	if (*head == NULL) {
+		return -99999;
+	}
+	node* del = *head;
+	int value;
+	*head = (*head)->next;
+	value = del->value;
+	free(del);
+	if (*head == NULL)
+		*tail = NULL;
+	return value;
+}
+
+void display(node* head, node* tail) {
+	if (head == NULL) {
+		printf("\n\n\t\tempty queue\n");
+		return;
+	}
+	printf("queue display(FIFO): ");
+	node* cur = head;
+	while (cur != tail) {
+		printf("%d -> ", cur->value);
+		cur = cur->next;
+	}
+	printf("%d\n", cur->value);
+}
+
+void clear(node** head, node** tail) {
+	if (*head == NULL) {
+		printf("\n\n\t\tempty queue\n");
+		return;
+	}
+	while (*head != NULL) {
+		node* del = *head;
+		(*head) = (*head)->next;
+		free(del);
+	}
+	*tail = NULL;
+}
+
+int main() {
+	int choice, data;
+	node* head = NULL;
+	node* tail = NULL;
+
+	while (1) {
+		system("cls");
+		printf("\n\n\t\t***circular queue***\n\n");
+		printf("1. enqueue   2. dequeue   3. print   4. clear   0. terminate\n");
+		printf("choice: ");
+		scanf_s("%d", &choice);
+		while (getchar() != '\n');
+		switch (choice) {
+		case 1:
+			printf("\n\n\t\t정수 입력: ");
+			scanf_s("%d", &data);
+			while (getchar() != '\n');
+			enqueue(&head, &tail, data);
+			break;
+		case 2:
+			data = dequeue(&head, &tail);
+			if (data == -99999)
+				printf("\n\n\t\tqueue underflow\n");
+			else
+				printf("\n\n\t\t%d dequeue\n", data);
+			break;
+		case 3:
+			display(head, tail);
+			break;
+		case 4:
+			clear(&head, &tail);
+			break;
+		case 0:
+			exit(0);
+		}
+		printf("\n\n\t\t");
+		system("pause");
+	}
+	return 0;
+}
