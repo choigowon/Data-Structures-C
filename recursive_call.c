@@ -14,8 +14,15 @@ int power(int x, int y) { // x의 y 거듭제곱
 	return x * power(x, y - 1);
 }
 
+int gcd(int x, int y) { // x와 y의 최대공약수
+	if (y == 0)
+		return x;
+	return gcd(y, x % y);
+}
+
 int main() {
 	recursive(3);
-	printf("\n%d\n", power(2, 3));
+	printf("\n2와 3의 거듭제곱: %d\n", power(2, 3));
+	printf("72와 30의 최대공약수: %d\n", gcd(72, 30));
 	return 0;
 }
