@@ -20,9 +20,29 @@ int gcd(int x, int y) { // x와 y의 최대공약수
 	return gcd(y, x % y);
 }
 
+int binarysearch(int* arr, int left, int right, int target) {
+	if (left > right)
+		return -1;
+	int mid = (left + right) / 2;
+	if (arr[mid] == target)
+		return mid;
+	if (arr[mid] < target)
+		return binarysearch(arr, mid + 1, right, target);
+	else
+		return binarysearch(arr, left, mid - 1, target);
+}
+
 int main() {
 	recursive(3);
 	printf("\n2와 3의 거듭제곱: %d\n", power(2, 3));
 	printf("72와 30의 최대공약수: %d\n", gcd(72, 30));
+
+	int arr[10] = { 1,2,3,4,5,6,7,8,9,10 };
+	int index;
+	index = binarysearch(arr, 0, 9, 14);
+	if (index == -1)
+		printf("error\n");
+	else
+		printf("arr[%d]\n", index);
 	return 0;
 }
