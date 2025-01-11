@@ -32,6 +32,13 @@ int binarysearch(int* arr, int left, int right, int target) {
 		return binarysearch(arr, left, mid - 1, target);
 }
 
+long long fibo(int n) { // O(2^n). 중복된 계산이 많아짐
+	if (n <= 2)
+		return 1;
+	else
+		return fibo(n - 1) + fibo(n - 2);
+}
+
 int main() {
 	recursive(3);
 	printf("\n2와 3의 거듭제곱: %d\n", power(2, 3));
@@ -44,5 +51,7 @@ int main() {
 		printf("error\n");
 	else
 		printf("arr[%d]\n", index);
+
+	printf("%lld\n", fibo(5));
 	return 0;
 }
