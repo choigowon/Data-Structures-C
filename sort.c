@@ -81,6 +81,38 @@ void merge(int* arr1, int size1, int* arr2, int size2, int* arrMerge) {
 		arrMerge[idxM++] = arr2[idx2++];
 }
 
+void mergeSort(int* arr, int size) { // O(N)
+	int* arrMerge = (int*)malloc(sizeof(int) * size);
+	mergeSortUtil(arr, arrMerge, 0, size - 1);
+	free(arrMerge);
+}
+
+void mergeSortUtil(int* arr, int* arrMerge, int left, int right) {
+	int mid;
+	if (left < right) { // 원소가 1개 남을 때까지 나눈 이후 병합
+		mid = (left + right) / 2;
+		mergeSortUtil(arr, arrMerge, left, mid);
+		mergeSortUtil(arr, arrMerge, mid + 1, right);
+		merge2(arr, arrMerge, left, mid, right);
+	}
+}
+
+void merge2(int* arr, int* arrMerge, int left, int mid, int right) {
+	int idx1 = left;
+	int idx2 = mid + 1;
+	int idxM = left;
+	for (int i = left; i <= right; i++)
+		arrMerge[i] = arr[i];
+	while (idx1 <= mid && idx2 <= right) {
+		if (arrMerge[idx1] < arrMerge[idx2])
+			arr[idxM++] = arrMerge[idx1++];
+		else
+			arr[idxM++] = arrMerge[idx2++];
+	}
+	while (idx1 <= mid)
+		arr[idxM++] = arrMerge[idx1++];
+}
+
 int main() {
 	int arr1[6] = { 2,4,7,9,11,15 };
 	int arr2[6] = { 1,5,8,14,19,21 };
