@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-void bubbleSort(int* arr, int size) {
+void bubbleSort(int* arr, int size) { // O(N ^ 2)
 	int i, j, temp;
 	for (i = 0; i < size - 1; i++) { // pass
 		for (j = 0; j < size - 1 - i; j++) {
@@ -37,6 +37,27 @@ void insertionSort(int* arr, int size) {
 		}
 		arr[j] = temp;
 	}
+}
+
+void quickSort(int* arr, int left, int right) { // O(N log N)
+	int pl = left, pr = right, pivot = arr[(pl + pr) / 2], temp;
+	do {
+		while (arr[pl] < pivot)
+			pl++;
+		while (arr[pr] > pivot)
+			pr--;
+		if (pl <= pr) {
+			temp = arr[pl];
+			arr[pl] = arr[pr];
+			arr[pr] = temp;
+			pl++;
+			pr--;
+		}
+	} while (pl <= pr);
+	if (left < pr)
+		quickSort(arr, left, pr);
+	if (pl < right)
+		quickSort(arr, pl, right);
 }
 
 int main() {
