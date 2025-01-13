@@ -60,6 +60,31 @@ void quickSort(int* arr, int left, int right) { // O(N log N)
 		quickSort(arr, pl, right);
 }
 
-int main() {
+void merge(int* arr1, int size1, int* arr2, int size2, int* arrMerge) {
+	int idx1, idx2, idxM;
+	idx1 = idx2 = idxM = 0;
+	while (idx1 < size1 && idx2 < size2) {
+		if (arr1[idx1] < arr2[idx2]) {
+			arrMerge[idxM] = arr1[idx1];
+			idx1++;
+			idxM++;
+		}
+		else {
+			arrMerge[idxM] = arr2[idx2];
+			idx2++;
+			idxM++;
+		}
+	}
+	while (idx1 < size1)
+		arrMerge[idxM++] = arr1[idx1++];
+	while (idx2 < size2)
+		arrMerge[idxM++] = arr2[idx2++];
+}
 
+int main() {
+	int arr1[6] = { 2,4,7,9,11,15 };
+	int arr2[6] = { 1,5,8,14,19,21 };
+	int arrMerge[12];
+	merge(arr1, 6, arr2, 6, arrMerge);
+	return 0;
 }
