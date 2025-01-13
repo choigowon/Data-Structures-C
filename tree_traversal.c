@@ -23,6 +23,14 @@ tree* add(tree* t, int data) {
 	return t;
 }
 
+void display(tree* t) {
+	if (t != NULL) {
+		display(t->left);
+		printf("%d ", t->value);
+		display(t->right);
+	}
+}
+
 int main() {
 	tree* root = NULL;
 	int choice, data;
@@ -54,6 +62,7 @@ int main() {
 		case 5:
 			break;
 		case 6:
+			display(root);
 			break;
 		case 0:
 			break;
