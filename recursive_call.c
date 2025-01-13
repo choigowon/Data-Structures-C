@@ -56,6 +56,16 @@ double fibo2(int n) { // DP(bottom-up 방식): 반복문
 	return mz[n];
 }
 
+void hanoi(int n, char from, char temp, char to) {
+	if (n == 1) { // 가장 큰 원 옮기기 (2)
+		printf("%c->%c\n", from, to);
+		return;
+	}
+	hanoi(n - 1, from, to, temp); // 나머지 원 임시 공간에 옮기기 (1)
+	printf("%c->%c\n", from, to);
+	hanoi(n - 1, temp, from, to); // 나머지 원 목표 공간에 옮기기 (3)
+}
+
 int main() {
 	recursive(3);
 	printf("\n2와 3의 거듭제곱: %d\n", power(2, 3));
@@ -70,5 +80,7 @@ int main() {
 		printf("arr[%d]\n", index);
 
 	printf("%lld\n", fibo(5));
+
+	hanoi(3, 'A', 'B', 'C');
 	return 0;
 }
