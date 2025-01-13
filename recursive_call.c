@@ -39,6 +39,23 @@ long long fibo(int n) { // O(2^n). 중복된 계산이 많아짐
 		return fibo(n - 1) + fibo(n - 2);
 }
 
+double mz[100] = { 0,1,1 };
+double fibo1(int n) { // DP(top-down 방식): memoization
+	if (mz[n] != 0)
+		return mz[n];
+	else {
+		mz[n] = fibo(n - 1) + fibo(n - 2);
+		return mz[n];
+	}
+}
+
+double fibo2(int n) { // DP(bottom-up 방식): 반복문
+	for (int i = 3; i <= n; i++) {
+		mz[i] = mz[i - 1] + mz[i - 2];
+	}
+	return mz[n];
+}
+
 int main() {
 	recursive(3);
 	printf("\n2와 3의 거듭제곱: %d\n", power(2, 3));
