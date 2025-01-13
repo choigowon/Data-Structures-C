@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 void bubbleSort(int* arr, int size) { // O(N ^ 2)
 	int i, j, temp;
@@ -81,22 +82,6 @@ void merge(int* arr1, int size1, int* arr2, int size2, int* arrMerge) {
 		arrMerge[idxM++] = arr2[idx2++];
 }
 
-void mergeSort(int* arr, int size) { // O(N)
-	int* arrMerge = (int*)malloc(sizeof(int) * size);
-	mergeSortUtil(arr, arrMerge, 0, size - 1);
-	free(arrMerge);
-}
-
-void mergeSortUtil(int* arr, int* arrMerge, int left, int right) {
-	int mid;
-	if (left < right) { // 원소가 1개 남을 때까지 나눈 이후 병합
-		mid = (left + right) / 2;
-		mergeSortUtil(arr, arrMerge, left, mid);
-		mergeSortUtil(arr, arrMerge, mid + 1, right);
-		merge2(arr, arrMerge, left, mid, right);
-	}
-}
-
 void merge2(int* arr, int* arrMerge, int left, int mid, int right) {
 	int idx1 = left;
 	int idx2 = mid + 1;
@@ -111,6 +96,36 @@ void merge2(int* arr, int* arrMerge, int left, int mid, int right) {
 	}
 	while (idx1 <= mid)
 		arr[idxM++] = arrMerge[idx1++];
+}
+
+void mergeSortUtil(int* arr, int* arrMerge, int left, int right) {
+	int mid;
+	if (left < right) { // 원소가 1개 남을 때까지 나눈 이후 병합
+		mid = (left + right) / 2;
+		mergeSortUtil(arr, arrMerge, left, mid);
+		mergeSortUtil(arr, arrMerge, mid + 1, right);
+		merge2(arr, arrMerge, left, mid, right);
+	}
+}
+
+void mergeSort(int* arr, int size) { // O(N)
+	int* arrMerge = (int*)malloc(sizeof(int) * size);
+	mergeSortUtil(arr, arrMerge, 0, size - 1);
+	free(arrMerge);
+}
+
+void bucketSort(int* arr, int size, int range) { // O(N)
+	int* bucket = (int*)calloc(range, sizeof(int));
+	int i, j, index = 0;
+	for (i = 0; i < size; i++) {
+		bucket[arr[i]]++;
+	}
+	for (i = 1; i < range; i++) {
+		for (j = 1; j <= bucket[i]; j++) {
+			arr[index++] = i;
+		}
+	}
+	free(bucket);
 }
 
 int main() {
